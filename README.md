@@ -21,6 +21,8 @@ uvicorn metro_api:app --reload
 ```
 The API will be available at `http://127.0.0.1:8000`.
 
+**Production URL**: `https://qatar-metro-api.onrender.com/`
+
 ## API Usage Examples
 
 ### Get All Stations

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #8C1D40; /* Qatar Maroon */
+            --primary: #8C1D40;
+            /* Qatar Maroon */
             --primary-light: #A5294F;
             --accent: #FFD700;
             --background: #0f1115;
@@ -31,7 +33,7 @@
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, rgba(140, 29, 64, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(140, 29, 64, 0.1) 0%, transparent 40%);
         }
@@ -83,13 +85,13 @@
             font-size: 1.1rem;
             backdrop-filter: blur(10px);
             transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         input[type="text"]:focus {
             outline: none;
             border-color: var(--primary);
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 40px rgba(140, 29, 64, 0.3);
         }
 
@@ -111,14 +113,21 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .station-card:hover {
             transform: translateY(-8px);
             border-color: rgba(140, 29, 64, 0.5);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .station-name {
@@ -141,19 +150,42 @@
             background: #444;
         }
 
-        .line-Red { background: #E21E26; color: white; }
-        .line-Green { background: #00A651; color: white; }
-        .line-Gold { background: #C5A149; color: white; }
-        .line-Orange { background: #F7941E; color: white; }
-        .line-Turquoise { background: #00ABEC; color: white; }
-        .line-Pink { background: #ED1E79; color: white; }
+        .line-Red {
+            background: #E21E26;
+            color: white;
+        }
+
+        .line-Green {
+            background: #00A651;
+            color: white;
+        }
+
+        .line-Gold {
+            background: #C5A149;
+            color: white;
+        }
+
+        .line-Orange {
+            background: #F7941E;
+            color: white;
+        }
+
+        .line-Turquoise {
+            background: #00ABEC;
+            color: white;
+        }
+
+        .line-Pink {
+            background: #ED1E79;
+            color: white;
+        }
 
         .timing-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.8rem;
             padding-bottom: 0.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .timing-row:last-child {
@@ -184,7 +216,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .empty-state {
@@ -210,76 +244,76 @@
         .station-card:hover::before {
             opacity: 1;
         }
-
     </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Qatar Metro API</h1>
-    <p class="subtitle">Smart departures, real-time schedule checks, and seamless station discovery for Doha.</p>
-</header>
+    <header>
+        <h1>Qatar Metro API</h1>
+        <p class="subtitle">Smart departures, real-time schedule checks, and seamless station discovery for Doha.</p>
+    </header>
 
-<div class="container">
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search station (e.g. Msheireb)..." autocomplete="off">
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search station (e.g. Msheireb)..." autocomplete="off">
+        </div>
+
+        <div class="loader" id="loader"></div>
+
+        <div class="results" id="results">
+            <div class="empty-state">Start typing to search for metro stations...</div>
+        </div>
     </div>
 
-    <div class="loader" id="loader"></div>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const resultsContainer = document.getElementById('results');
+        const loader = document.getElementById('loader');
 
-    <div class="results" id="results">
-        <div class="empty-state">Start typing to search for metro stations...</div>
-    </div>
-</div>
+        let debounceTimer;
 
-<script>
-    const searchInput = document.getElementById('searchInput');
-    const resultsContainer = document.getElementById('results');
-    const loader = document.getElementById('loader');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            clearTimeout(debounceTimer);
 
-    let debounceTimer;
-
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value;
-        clearTimeout(debounceTimer);
-        
-        if (query.length < 2) {
-            resultsContainer.innerHTML = '<div class="empty-state">Start typing to search for metro stations...</div>';
-            return;
-        }
-
-        loader.style.display = 'block';
-        debounceTimer = setTimeout(() => {
-            fetchStations(query);
-        }, 300);
-    });
-
-    async function fetchStations(query) {
-        try {
-            const response = await fetch(`http://localhost:8000/metro/search?name=${encodeURIComponent(query)}`);
-            const data = await response.json();
-            
-            loader.style.display = 'none';
-            
-            if (data.results && data.results.length > 0) {
-                renderResults(data.results);
-            } else {
-                resultsContainer.innerHTML = '<div class="empty-state">No stations found matching your search.</div>';
+            if (query.length < 2) {
+                resultsContainer.innerHTML = '<div class="empty-state">Start typing to search for metro stations...</div>';
+                return;
             }
-        } catch (error) {
-            loader.style.display = 'none';
-            resultsContainer.innerHTML = '<div class="empty-state">Error connecting to the API. Make sure the server is running.</div>';
+
+            loader.style.display = 'block';
+            debounceTimer = setTimeout(() => {
+                fetchStations(query);
+            }, 300);
+        });
+
+        async function fetchStations(query) {
+            try {
+                const response = await fetch(`https://qatar-metro-api.onrender.com/metro/search?name=${encodeURIComponent(query)}`);
+                const data = await response.json();
+
+                loader.style.display = 'none';
+
+                if (data.results && data.results.length > 0) {
+                    renderResults(data.results);
+                } else {
+                    resultsContainer.innerHTML = '<div class="empty-state">No stations found matching your search.</div>';
+                }
+            } catch (error) {
+                loader.style.display = 'none';
+                resultsContainer.innerHTML = '<div class="empty-state">Error connecting to the API. Make sure the server is running.</div>';
+            }
         }
-    }
 
-    function renderResults(stations) {
-        resultsContainer.innerHTML = '';
-        stations.forEach((station, index) => {
-            const card = document.createElement('div');
-            card.className = 'station-card';
-            card.style.animationDelay = `${index * 0.1}s`;
+        function renderResults(stations) {
+            resultsContainer.innerHTML = '';
+            stations.forEach((station, index) => {
+                const card = document.createElement('div');
+                card.className = 'station-card';
+                card.style.animationDelay = `${index * 0.1}s`;
 
-            const linesHtml = station.Lines.map(line => `
+                const linesHtml = station.Lines.map(line => `
                 <div class="line-section">
                     <span class="line-badge line-${line.Line}">${line.Line} Line</span>
                     <div class="timing-row">
@@ -289,14 +323,15 @@
                 </div>
             `).join('');
 
-            card.innerHTML = `
+                card.innerHTML = `
                 <div class="station-name">📍 ${station.Station}</div>
                 ${linesHtml}
             `;
-            resultsContainer.appendChild(card);
-        });
-    }
-</script>
+                resultsContainer.appendChild(card);
+            });
+        }
+    </script>
 
 </body>
+
 </html>
