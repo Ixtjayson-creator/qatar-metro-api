@@ -1,77 +1,153 @@
 Station,Line,First_Train,Last_Train,Days
-Al Aziziyah,Gold,05:34,01:08,Friday
-Al Bidda,Green,05:34,01:07,Friday
-Al Bidda,Red,01:10,09:37,Friday
-Al Doha Al Jadeda Red,0,01:06,09:05,Friday
-Al Khayl Street,Orange,05:52,01:57,Friday
-Al Khayl Street,Turquoise,05:46,02:05,Friday
-Al Mansoura,Green,05:30,01:37,Friday
-Al Matar Al Qadeem,Red,01:02,09:40,Friday
-Al Messila,Green,05:41,01:14,Friday
-Al Qassar,Red,01:21,09:47,Friday
-Al Rayyan Al Qadeem,Green,05:44,01:17,Friday
-Al Riffa Mall of Qatar,Green,05:30,01:09,Friday
-Al Sadd,Gold,05:45,01:19,Friday
-Al Shaqab,Green,05:46,01:19,Friday
-Al Sudan Gold,0,05:41,01:15,Friday
-Al Waab QLM,Gold,05:38,01:13,Friday
-Al Wakra,Red,00:51,09:30,Friday
-Al Wessil,Orange,05:50,02:08,Friday
-Al Yasmeen,Orange,05:45,02:01,Friday
-Al Yasmeen,Turquoise,05:38,01:56,Friday
-Bin Mahmoud,Gold,05:46,01:21,Friday
-Corniche,Red,01:13,09:40,Friday
-Crescent Park North,Orange,05:55,02:01,Friday
-Crescent Park North,Turquoise,05:49,02:08,Friday
-DECC,Red,01:17,09:43,Friday
-Downtown Lusail,Orange,05:50,01:56,Friday
-Downtown Lusail,Turquoise,05:44,02:03,Friday
-Education City,Green,05:51,01:24,Friday
-Erkiyah,Orange,05:37,01:53,Friday
-Erkiyah,Turquoise,05:55,02:15,Friday
-Fox Hills North,Orange,05:54,01:59,Friday
-Fox Hills North,Turquoise,05:48,02:07,Friday
-Fox Hills South,Orange,05:48,01:53,Friday
-Fox Hills South,Turquoise,05:42,02:00,Friday
-Free Zone,Red,00:56,09:35,Friday
-Hamad Hospital,Green,05:38,01:11,Friday
-Hamad International Airport Terminal 1,Red,01:50,01:50,Friday
-Joaan,Gold,05:43,01:17,Friday
-Katara,Red,01:23,09:49,Friday
-Legtaifiya,Orange,05:30,01:34,Friday
-Legtaifiya,Pink,05:36,01:42,Friday
-Legtaifiya,Red,01:25,09:51,Friday
-Lusail QNB,Red,00:53,09:31,Friday
-Lusail QNB,Turquoise,05:03,01:14,Friday
-Lusail Stadium,Orange,05:40,01:56,Friday
-Lusail Stadium,Turquoise,05:58,02:18,Friday
-Marina Central,Pink,05:52,02:09,Friday
-Marina Central Orange,0,05:58,02:16,Friday
-Marina North,Orange,05:55,02:13,Friday
-Marina North,Pink,05:49,02:06,Friday
-Marina South,Orange,06:00,02:18,Friday
-Marina South,Pink,05:54,02:11,Friday
-Msheireb,Gold,05:48,01:23,Friday
-Msheireb,Green,05:32,01:05,Friday
-Msheireb,Red,01:08,09:35,Friday
-Naifa,Orange,05:48,02:05,Friday
-National Museum,Gold,05:53,01:27,Friday
-Oqba Ibn Nafie,Red,00:59,09:38,Friday
-Qatar National Library,Green,05:48,01:21,Friday
-Qatar University,Red,01:29,09:56,Friday
-Ras Bu Abboud,Gold,05:30,01:09,Friday
-Ras Bu Fontas,Red,01:50,01:50,Friday
-Rawdat Lusail,Orange,05:34,02:03,Friday
-Rawdat Lusail,Turquoise,05:52,02:12,Friday
-Seef Lusail North,Pink,05:06,01:15,Friday
-Seef Lusail South,Pink,05:11,01:20,Friday
-Souq Waqif,Gold,05:50,01:25,Friday
-Sport City,Gold,05:36,01:10,Friday
-Tarfat South,Orange,05:53,02:11,Friday
-Tarfat South,Pink,05:47,02:04,Friday
-The White Palace,Green,05:37,01:10,Friday
-Umm Ghuwailina,Red,01:04,09:42,Friday
-Wadi,Pink,05:13,01:22,Friday
-West Bay Qatar Energy,Red,01:15,09:41,Friday
-Yacht Club,Orange,05:57,02:15,Friday
-Yacht Club,Pink,05:51,02:07,Friday
+Al Aziziyah,Gold,05:34,01:01,Saturday - Thursday
+Al Aziziyah,Gold,09:30,01:01,Friday
+Al Bidda,Green,05:34,01:01,Saturday - Thursday
+Al Bidda,Green,09:36,01:01,Friday
+Al Bidda,Red,05:37,01:10,Saturday - Thursday
+Al Bidda,Red,09:37,01:10,Friday
+Al Doha Al Jadeda,Red,05:32,01:06,Saturday - Thursday
+Al Doha Al Jadeda,Red,09:05,01:06,Friday
+Al Khayl Street,Orange,05:52,00:45,Saturday - Thursday
+Al Khayl Street,Orange,14:52,00:45,Friday
+Al Khayl Street,Turquoise,05:46,00:45,Saturday - Thursday
+Al Khayl Street,Turquoise,14:46,00:45,Friday
+Al Mansoura,Green,05:30,01:01,Saturday - Thursday
+Al Mansoura,Green,09:30,01:01,Friday
+Al Matar Al Qadeem,Red,05:40,01:02,Saturday - Thursday
+Al Matar Al Qadeem,Red,09:40,01:02,Friday
+Al Messila,Green,05:41,01:01,Saturday - Thursday
+Al Messila,Green,09:42,01:01,Friday
+Al Qassar,Red,05:47,01:21,Saturday - Thursday
+Al Qassar,Red,09:47,01:21,Friday
+Al Rayyan Al Qadeem,Green,05:44,01:01,Saturday - Thursday
+Al Rayyan Al Qadeem,Green,09:45,01:01,Friday
+Al Riffa Mall of Qatar,Green,05:30,01:01,Saturday - Thursday
+Al Riffa Mall of Qatar,Green,09:30,01:01,Friday
+Al Sadd,Gold,05:45,01:01,Saturday - Thursday
+Al Sadd,Gold,09:40,01:01,Friday
+Al Shaqab,Green,05:46,01:01,Saturday - Thursday
+Al Shaqab,Green,09:47,01:01,Friday
+Al Sudan,Gold,05:41,01:01,Saturday - Thursday
+Al Sudan,Gold,09:36,01:01,Friday
+Al Waab QLM,Gold,05:38,01:01,Saturday - Thursday
+Al Waab QLM,Gold,09:34,01:01,Friday
+Al Wakra,Red,05:30,00:51,Saturday - Thursday
+Al Wakra,Red,09:30,00:51,Friday
+Al Wessil,Orange,05:50,00:45,Saturday - Thursday
+Al Wessil,Orange,14:50,00:45,Friday
+Al Yasmeen,Orange,05:45,00:45,Saturday - Thursday
+Al Yasmeen,Orange,14:45,00:45,Friday
+Al Yasmeen,Turquoise,05:38,00:45,Saturday - Thursday
+Al Yasmeen,Turquoise,14:38,00:45,Friday
+Bin Mahmoud,Gold,05:46,01:01,Saturday - Thursday
+Bin Mahmoud,Gold,09:42,01:01,Friday
+Corniche,Red,05:40,01:13,Saturday - Thursday
+Corniche,Red,09:40,01:13,Friday
+Crescent Park North,Orange,05:55,00:45,Saturday - Thursday
+Crescent Park North,Orange,14:55,00:45,Friday
+Crescent Park North,Turquoise,05:49,00:45,Saturday - Thursday
+Crescent Park North,Turquoise,14:49,00:45,Friday
+DECC,Red,05:43,01:17,Saturday - Thursday
+DECC,Red,09:43,01:17,Friday
+Downtown Lusail,Orange,05:50,00:45,Saturday - Thursday
+Downtown Lusail,Orange,14:50,00:45,Friday
+Downtown Lusail,Turquoise,05:44,00:45,Saturday - Thursday
+Downtown Lusail,Turquoise,14:44,00:45,Friday
+Education City,Green,05:51,01:01,Saturday - Thursday
+Education City,Green,09:52,01:01,Friday
+Erkiyah,Orange,05:37,00:45,Saturday - Thursday
+Erkiyah,Orange,14:37,00:45,Friday
+Erkiyah,Turquoise,05:55,00:45,Saturday - Thursday
+Erkiyah,Turquoise,14:55,00:45,Friday
+Fox Hills North,Orange,05:54,00:45,Saturday - Thursday
+Fox Hills North,Orange,14:54,00:45,Friday
+Fox Hills North,Turquoise,05:48,00:45,Saturday - Thursday
+Fox Hills North,Turquoise,14:48,00:45,Friday
+Fox Hills South,Orange,05:48,00:45,Saturday - Thursday
+Fox Hills South,Orange,14:48,00:45,Friday
+Fox Hills South,Turquoise,05:42,00:45,Saturday - Thursday
+Fox Hills South,Turquoise,14:42,00:45,Friday
+Free Zone,Red,05:35,00:56,Saturday - Thursday
+Free Zone,Red,09:35,00:56,Friday
+Hamad Hospital,Green,05:38,01:01,Saturday - Thursday
+Hamad Hospital,Green,09:40,01:01,Friday
+Hamad International Airport Terminal 1,Red,05:37,00:45,Saturday - Thursday
+Hamad International Airport Terminal 1,Red,09:39,00:45,Friday
+Joaan,Gold,05:43,01:01,Saturday - Thursday
+Joaan,Gold,09:39,01:01,Friday
+Katara,Red,05:49,01:23,Saturday - Thursday
+Katara,Red,09:49,01:23,Friday
+Legtaifiya,Orange,05:30,00:45,Saturday - Thursday
+Legtaifiya,Orange,14:30,00:45,Friday
+Legtaifiya,Pink,05:36,01:45,Saturday - Thursday
+Legtaifiya,Pink,14:36,01:45,Friday
+Legtaifiya,Red,05:51,01:25,Saturday - Thursday
+Legtaifiya,Red,09:51,01:25,Friday
+Lusail QNB,Red,05:34,00:53,Saturday - Thursday
+Lusail QNB,Red,09:31,00:53,Friday
+Lusail QNB,Turquoise,05:03,00:13,Saturday - Thursday
+Lusail QNB,Turquoise,14:03,00:13,Friday
+Lusail Stadium,Orange,05:40,00:45,Saturday - Thursday
+Lusail Stadium,Orange,14:40,00:45,Friday
+Lusail Stadium,Turquoise,05:58,00:45,Saturday - Thursday
+Lusail Stadium,Turquoise,14:58,00:45,Friday
+Marina Central,Orange,05:58,00:45,Saturday - Thursday
+Marina Central,Orange,14:58,00:45,Friday
+Marina Central,Pink,05:52,01:45,Saturday - Thursday
+Marina Central,Pink,14:52,01:45,Friday
+Marina North,Orange,05:55,00:45,Saturday - Thursday
+Marina North,Orange,14:55,00:45,Friday
+Marina North,Pink,05:49,01:45,Saturday - Thursday
+Marina North,Pink,14:49,01:45,Friday
+Marina South,Orange,06:00,00:45,Saturday - Thursday
+Marina South,Orange,14:34,00:45,Friday
+Marina South,Pink,05:54,01:45,Saturday - Thursday
+Marina South,Pink,14:54,01:45,Friday
+Msheireb,Gold,05:48,01:01,Saturday - Thursday
+Msheireb,Gold,09:44,01:01,Friday
+Msheireb,Green,05:32,01:01,Saturday - Thursday
+Msheireb,Green,09:34,01:01,Friday
+Msheireb,Red,05:35,01:08,Saturday - Thursday
+Msheireb,Red,09:35,01:08,Friday
+Naifa,Orange,05:48,00:45,Saturday - Thursday
+Naifa,Orange,14:48,00:45,Friday
+National Museum,Gold,05:53,01:01,Saturday - Thursday
+National Museum,Gold,09:48,01:01,Friday
+Oqba Ibn Nafie,Red,05:38,00:59,Saturday - Thursday
+Oqba Ibn Nafie,Red,09:38,00:59,Friday
+Qatar National Library,Green,05:48,01:01,Saturday - Thursday
+Qatar National Library,Green,09:50,01:01,Friday
+Qatar University,Red,05:56,01:29,Saturday - Thursday
+Qatar University,Red,09:56,01:29,Friday
+Ras Bu Abboud,Gold,05:30,01:01,Saturday - Thursday
+Ras Bu Abboud,Gold,09:30,01:01,Friday
+Ras Bu Fontas,Red,05:32,00:54,Saturday - Thursday
+Ras Bu Fontas,Red,09:32,00:54,Friday
+Rawdat Lusail,Orange,05:34,00:45,Saturday - Thursday
+Rawdat Lusail,Orange,14:34,00:45,Friday
+Rawdat Lusail,Turquoise,05:52,00:45,Saturday - Thursday
+Rawdat Lusail,Turquoise,14:52,00:45,Friday
+Seef Lusail North,Pink,05:06,01:09,Saturday - Thursday
+Seef Lusail North,Pink,14:06,01:09,Friday
+Seef Lusail South,Pink,05:11,01:09,Saturday - Thursday
+Seef Lusail South,Pink,14:11,01:09,Friday
+Souq Waqif,Gold,05:50,01:01,Saturday - Thursday
+Souq Waqif,Gold,09:46,01:01,Friday
+Sport City,Gold,05:36,01:01,Saturday - Thursday
+Sport City,Gold,09:31,01:01,Friday
+Tarfat South,Orange,05:53,00:45,Saturday - Thursday
+Tarfat South,Orange,14:53,00:45,Friday
+Tarfat South,Pink,05:47,01:45,Saturday - Thursday
+Tarfat South,Pink,14:47,01:45,Friday
+The White Palace,Green,05:37,01:01,Saturday - Thursday
+The White Palace,Green,09:38,01:01,Friday
+Umm Ghuwailina,Red,05:42,01:04,Saturday - Thursday
+Umm Ghuwailina,Red,09:42,01:04,Friday
+Wadi,Pink,05:13,01:09,Saturday - Thursday
+Wadi,Pink,14:13,01:09,Friday
+West Bay Qatar Energy,Red,05:41,01:15,Saturday - Thursday
+West Bay Qatar Energy,Red,09:41,01:15,Friday
+Yacht Club,Orange,05:57,00:45,Saturday - Thursday
+Yacht Club,Orange,14:57,00:45,Friday
+Yacht Club,Pink,05:51,01:45,Saturday - Thursday
+Yacht Club,Pink,14:51,01:45,Friday
