@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qatar Metro API Demo</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8C1D40; /* Qatar Maroon */
+            --primary-light: #A5294F;
+            --accent: #FFD700;
+            --background: #0f1115;
+            --card-bg: #1a1e26;
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(140, 29, 64, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(140, 29, 64, 0.1) 0%, transparent 40%);
+        }
+
+        header {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        p.subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 500px;
+            padding: 1.2rem 2rem;
+            border-radius: 100px;
+            border: 2px solid var(--glass);
+            background: var(--glass);
+            color: white;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 10px 40px rgba(140, 29, 64, 0.3);
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .station-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid var(--glass);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .station-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(140, 29, 64, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .station-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .line-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            background: #444;
+        }
+
+        .line-Red { background: #E21E26; color: white; }
+        .line-Green { background: #00A651; color: white; }
+        .line-Gold { background: #C5A149; color: white; }
+        .line-Orange { background: #F7941E; color: white; }
+        .line-Turquoise { background: #00ABEC; color: white; }
+        .line-Pink { background: #ED1E79; color: white; }
+
+        .timing-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .timing-row:last-child {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .day-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .time-label {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .loader {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--glass);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-dim);
+            grid-column: 1 / -1;
+        }
+
+        /* Micro-animations */
+        .station-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .station-card:hover::before {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Qatar Metro API</h1>
+    <p class="subtitle">Smart departures, real-time schedule checks, and seamless station discovery for Doha.</p>
+</header>
+
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search station (e.g. Msheireb)..." autocomplete="off">
+    </div>
+
+    <div class="loader" id="loader"></div>
+
+    <div class="results" id="results">
+        <div class="empty-state">Start typing to search for metro stations...</div>
+    </div>
+</div>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const resultsContainer = document.getElementById('results');
+    const loader = document.getElementById('loader');
+
+    let debounceTimer;
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value;
+        clearTimeout(debounceTimer);
+        
+        if (query.length < 2) {
+            resultsContainer.innerHTML = '<div class="empty-state">Start typing to search for metro stations...</div>';
+            return;
+        }
+
+        loader.style.display = 'block';
+        debounceTimer = setTimeout(() => {
+            fetchStations(query);
+        }, 300);
+    });
+
+    async function fetchStations(query) {
+        try {
+            const response = await fetch(`http://localhost:8000/metro/search?name=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            
+            loader.style.display = 'none';
+            
+            if (data.results && data.results.length > 0) {
+                renderResults(data.results);
+            } else {
+                resultsContainer.innerHTML = '<div class="empty-state">No stations found matching your search.</div>';
+            }
+        } catch (error) {
+            loader.style.display = 'none';
+            resultsContainer.innerHTML = '<div class="empty-state">Error connecting to the API. Make sure the server is running.</div>';
+        }
+    }
+
+    function renderResults(stations) {
+        resultsContainer.innerHTML = '';
+        stations.forEach((station, index) => {
+            const card = document.createElement('div');
+            card.className = 'station-card';
+            card.style.animationDelay = `${index * 0.1}s`;
+
+            const linesHtml = station.Lines.map(line => `
+                <div class="line-section">
+                    <span class="line-badge line-${line.Line}">${line.Line} Line</span>
+                    <div class="timing-row">
+                        <span class="day-label">${line.Days}</span>
+                        <span class="time-label">${line.First_Train} — ${line.Last_Train}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            card.innerHTML = `
+                <div class="station-name">📍 ${station.Station}</div>
+                ${linesHtml}
+            `;
+            resultsContainer.appendChild(card);
+        });
+    }
+</script>
+
+</body>
+</html>
