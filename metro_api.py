@@ -61,10 +61,19 @@ def root():
 def get_metro_data(limit: int = Query(0, description="Number of stations to return, 0 for all"), skip: int = Query(0, description="Skip first N stations")):
     if not metro_data:
         raise HTTPException(status_code=404, detail="No metro data available")
+    
+    total_stations = len(metro_data)
     data = metro_data[skip:]
     if limit > 0:
         data = data[:limit]
-    return {"total": len(data), "stations": data}
+    
+    return {
+        "total": total_stations, 
+        "returned": len(data),
+        "skip": skip,
+        "limit": limit,
+        "stations": data
+    }
 
 @app.get("/metro/search", summary="Search station by name")
 def search_station(name: str = Query(..., description="Partial or full station name"), limit: int = Query(5, description="Max results to return")):
@@ -74,9 +83,11 @@ def search_station(name: str = Query(..., description="Partial or full station n
     matches = process.extract(name, station_names, scorer=fuzz.WRatio, limit=limit)
     
     results = []
-    for match_name, score, idx in matches:
+    for _, score, idx in matches:
+        if score < 30: # Filter out very poor matches
+            continue
         station = metro_data[idx].copy()
-        station["match_score"] = score
+        station["match_score"] = round(score, 2)
         results.append(station)
     
     if not results:
@@ -86,7 +97,7 @@ def search_station(name: str = Query(..., description="Partial or full station n
 
 @app.get("/metro/{station_name}", summary="Get exact station data")
 def get_station_data(station_name: str):
-    filtered = [s for s in metro_data if s["Station"].lower() == station_name.lower()]
-    if not filtered:
+    station = next((s for s in metro_data if s["Station"].lower() == station_name.lower()), None)
+    if not station:
         raise HTTPException(status_code=404, detail=f"Station '{station_name}' not found")
-    return filtered
+    return station

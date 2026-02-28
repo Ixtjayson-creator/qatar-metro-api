@@ -17,14 +17,30 @@ for filename in os.listdir(PDF_FOLDER):
     filepath = os.path.join(PDF_FOLDER, filename)
 
     # Extract station + line from filename
-    # Example: Legtaifiya_Orange.pdf
+    # Example: Legtaifiya_Orange.pdf or Al_Sudan_Gold_0.pdf
     name_part = filename.replace(".pdf", "")
     
-    if "_" in name_part:
-        station_raw, line = name_part.rsplit("_", 1)
+    # Known line colors to help with parsing
+    COLORS = ["Red", "Green", "Gold", "Orange", "Turquoise", "Pink"]
+    
+    parts = name_part.split("_")
+    line = "Unknown"
+    station_parts = []
+    
+    for i, part in enumerate(parts):
+        if part in COLORS:
+            line = part
+            station_parts = parts[:i]
+            break
+    
+    if not station_parts:
+        if "_" in name_part:
+            station_raw, line = name_part.rsplit("_", 1)
+        else:
+            station_raw = name_part
+            line = "Unknown"
     else:
-        station_raw = name_part
-        line = "Unknown"
+        station_raw = "_".join(station_parts)
 
     # Decode URL encoding and clean
     station = unquote(station_raw).replace("_", " ").strip()
@@ -32,32 +48,38 @@ for filename in os.listdir(PDF_FOLDER):
     # Open PDF
     doc = fitz.open(filepath)
     text = ""
-
     for page in doc:
         text += page.get_text()
-
     doc.close()
 
-    # Extract times (simple regex HH:MM)
+    # Extract all times (HH:MM)
     times = re.findall(r"\b\d{2}:\d{2}\b", text)
 
-    # Basic logic (you can improve this later)
-    first_train = times[0] if len(times) > 0 else ""
-    last_train = times[1] if len(times) > 1 else ""
-
-    # Detect days
-    if "Friday" in text:
-        days = "Friday"
-    else:
-        days = "Saturday - Thursday"
-
-    data.append({
-        "Station": station,
-        "Line": line,
-        "First_Train": first_train,
-        "Last_Train": last_train,
-        "Days": days
-    })
+    # Improved logic: Usually first two are Sat-Thu, and then if Friday exists, there's another set.
+    # This is still a bit of a guess without table parsing, but better than before.
+    if len(times) >= 2:
+        # Sat-Thu
+        data.append({
+            "Station": station,
+            "Line": line,
+            "First_Train": times[0],
+            "Last_Train": times[1],
+            "Days": "Saturday - Thursday"
+        })
+        
+        # Friday (usually later in the text)
+        if "Friday" in text and len(times) >= 4:
+            data.append({
+                "Station": station,
+                "Line": line,
+                "First_Train": times[-2], # Guessing Friday times are near the end
+                "Last_Train": times[-1],
+                "Days": "Friday"
+            })
+        elif "Friday" in text and len(times) >= 2:
+             # If only 2 times found but Friday mentioned, maybe they are same or it's just Friday?
+             # For now, let's just keep the Sat-Thu one as well.
+             pass
 
 # Convert to DataFrame
 df = pd.DataFrame(data)
