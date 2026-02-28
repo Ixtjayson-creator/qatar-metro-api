@@ -1,0 +1,9 @@
+myenv/
+__pycache__/
+*.pdf
+qr_pdfs/
+*.pyc
+.DS_Store
+metro_tables.json
+path/
+venv/
