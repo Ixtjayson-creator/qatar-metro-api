@@ -53,33 +53,46 @@ for filename in os.listdir(PDF_FOLDER):
     doc.close()
 
     # Extract all times (HH:MM)
-    times = re.findall(r"\b\d{2}:\d{2}\b", text)
+    all_times = re.findall(r"\b\d{2}:\d{2}\b", text)
+    
+    # Remove duplicates but preserve order
+    unique_times = []
+    seen = set()
+    for t in all_times:
+        if t not in seen:
+            unique_times.append(t)
+            seen.add(t)
 
-    # Improved logic: Usually first two are Sat-Thu, and then if Friday exists, there's another set.
-    # This is still a bit of a guess without table parsing, but better than before.
-    if len(times) >= 2:
-        # Sat-Thu
+    # Heuristic: Sat-Thu starts at 05 or 06, Friday starts at 09 or 14
+    f_start = [t for t in unique_times if t.startswith("09:") or t.startswith("14:")]
+    st_start = [t for t in unique_times if t.startswith("05:") or t.startswith("06:")]
+    ends = [t for t in unique_times if t.startswith("00:") or t.startswith("01:") or t.startswith("02:")]
+    
+    if st_start:
+        st_first = st_start[0]
+        # Heuristic for last train
+        st_last = ends[0] if ends else (unique_times[1] if len(unique_times) > 1 else "")
         data.append({
             "Station": station,
             "Line": line,
-            "First_Train": times[0],
-            "Last_Train": times[1],
+            "First_Train": st_first,
+            "Last_Train": st_last,
             "Days": "Saturday - Thursday"
         })
-        
-        # Friday (usually later in the text)
-        if "Friday" in text and len(times) >= 4:
-            data.append({
-                "Station": station,
-                "Line": line,
-                "First_Train": times[-2], # Guessing Friday times are near the end
-                "Last_Train": times[-1],
-                "Days": "Friday"
-            })
-        elif "Friday" in text and len(times) >= 2:
-             # If only 2 times found but Friday mentioned, maybe they are same or it's just Friday?
-             # For now, let's just keep the Sat-Thu one as well.
-             pass
+    
+    if f_start:
+        f_first = f_start[0]
+        f_last = ends[0] if ends else (unique_times[-1] if len(unique_times) > 0 else "")
+        data.append({
+            "Station": station,
+            "Line": line,
+            "First_Train": f_first,
+            "Last_Train": f_last,
+            "Days": "Friday"
+        })
+    elif "Friday" in text and len(st_start) > 0:
+        # If no explicit 9:00/14:00 found but Friday mentioned, maybe add it as same for now or skip
+        pass
 
 # Convert to DataFrame
 df = pd.DataFrame(data)
